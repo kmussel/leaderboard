@@ -1,0 +1,10 @@
+<%= link_to "BACK TO LEADERBOARD", leaderboard_entries_path(@entry.leaderboard) %>
+<div class="row">
+  <div class="large-6 columns"><%= @entry.entity.name %></div>
+</div>
+<div class="row">
+  <div class="large-6 columns">Score</div><div class="large-6 columns"><%= @entry.score %></div>
+</div>
+<div class="row">
+  <div class="large-6 columns">Rank</div><div class="large-6 columns"><%= @entry.rank %></div>
+</div>

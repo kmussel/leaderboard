@@ -1,0 +1,25 @@
+defaults: &defaults
+  adapter: postgresql
+  host: localhost
+  port: 5432
+  username: postgres
+  password: postgres
+  # GEG: Commenting this out means the PG exentions will be in the structure.sql file
+  #   # Also, this is fixed in 4.0 with this: https://github.com/rails/rails/pull/9203/commits
+  #     #schema_search_path: public
+  encoding: utf8
+  template: template0
+  pool: 16
+  timeout: 5000
+
+development:
+  <<: *defaults
+  database: leaderboard_development
+
+test: &test
+  <<: *defaults
+  database: leaderboard_test
+
+production:
+  <<: *defaults
+  database: leaderboard_production

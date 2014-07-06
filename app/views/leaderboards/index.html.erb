@@ -1,0 +1,4 @@
+<h1>Leaderboards</h1>
+<% @leaderboards.each do |l| %>
+  <div><%= link_to "LeaderBoard #{l.name} Entries", leaderboard_entries_path(l) %></div>
+<% end %>

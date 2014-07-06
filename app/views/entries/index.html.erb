@@ -1,0 +1,45 @@
+<h3>Leaderboard: <%= @leaderboard.name %> </h3>
+<div style="border: 1px solid black; padding:3px;">
+  
+  <%= form_tag leaderboard_entries_path(@leaderboard) do |f| %>
+    <%= hidden_field_tag :_method, 'POST'  %>  
+
+    <p><%= label_tag :entity_name %> <br />
+    <%= text_field_tag "entry[name]" %></p>
+
+    <p><%= label_tag :entry_score %> <br />
+    <%= text_field_tag "entry[score]" %></p>
+    
+    <button type="submit" class="small" style="margin-right:16px;">Save Entry</button>    
+  <% end %>
+</div>
+<div class="digg_pagination" style="margin-top:20px;">
+    <div class="page_info">
+      <%= page_entries_info @entries %>
+      <label for="per_page">Per Page
+      <input type="text" id="per_page" name="per_page" value="<%= (params[:per_page].blank? ? Entry.per_page :  params[:per_page].to_i) %>" onchange="if(this.value){window.location='?per_page='+this.value;}">
+      </label>
+    </div>
+    <%= will_paginate @entries, params: {per_page: (params[:per_page].blank? ? Entry.per_page :  params[:per_page].to_i)} %>
+</div>
+  
+<div class="row">
+  <div class="large-4 columns"> NAME </div>
+  <div class="large-3 columns"> SCORE </div>      
+  <div class="large-2 columns"> RANK </div>       
+  <div class="large-3 columns"> ACTION </div>           
+</div>
+<% @entries.each do |e| %>
+  <div class="row">
+    <div class="large-4 columns"><%= e.entity.name %></div>
+    <div class="large-3 columns"><%= e.score %></div>      
+    <div class="large-2 columns"><%= e.rank %></div>    
+    <div class="large-3 columns">
+      <%= link_to 'Show', leaderboard_entry_path(@leaderboard, e) %> | 
+      <%= form_tag leaderboard_entry_path(@leaderboard, e), :style => "display:inline-block" do |f| %>
+          <%= hidden_field_tag :_method, 'DELETE'  %>  
+          <input type="submit" class="tiny" value='Delete' />
+      <% end %>
+    </div>             
+  </div>
+<% end %>
